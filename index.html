@@ -24,12 +24,25 @@
       </a>
       <b onclick="app.carsController.viewCars()">Cars</b>
       <b onclick="app.housesController.viewHouses()">Houses</b>
-      <b>Jobs</b>
+      <b onclick="app.jobsController.viewJobs()">Jobs</b>
     </nav>
   </header>
   <main>
     <div class="container-fluid">
       <div id="listings" class="row">
+
+        <!-- HOUSE -->
+        <div class="col-6 col-md-3">
+          <div class="bg-light rounded shadow p-2">
+            <img class="img-fluid" src="https://photos.zillowstatic.com/fp/c6e010c5b38cb16126548a342b92608c-cc_ft_768.webp" alt="">
+            <h5 class="text-center">make | model | year</h5>
+            <h4 class="text-center">$100</h4>
+            <p>description</p>
+          </div>
+        </div>
+
+        <!-- END HOUSE -->
+
         <!-- Car -->
         <!-- <div class=" col-6 col-md-3 ">
           <div class="bg-light rounded shadow p-2">
@@ -58,6 +71,10 @@
               <!-- form part -->
               <!-- NOTE car from moved to components get car from -->
               <!-- form part -->
+
+              
+
+
             </div>
           </div>
         </div>
