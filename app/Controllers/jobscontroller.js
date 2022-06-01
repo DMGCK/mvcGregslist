@@ -16,17 +16,27 @@ export class JobsController {
   constructor() {
     console.log('Jobs startup'); 
     ProxyState.on('jobs', _drawJobs)
+    // this.getJobs()
+    
   }
+  
+  async getJobs() {
+     await jobsService.getJobs()
+   }
+   
+   viewJobs() {
+     console.log('viewing jobs'); 
+     this.getJobs()
+     _drawJobs()
 
-  viewJobs() {
-    console.log('viewing jobs'); 
-    _drawJobs()
+  }
+  
+  drawCreateForm() {
     let form = getJobForm()
     document.getElementById('form-body').innerHTML = form
-
   }
 
-  createJob() {
+  async createJob() {
     window.event.preventDefault()
     console.log('creating job'); 
 
@@ -35,11 +45,12 @@ export class JobsController {
     // console.log(form); 
     
     let jobData = {
-      name: form.name.value,
-      pay: form.pay.value,
-      requirements: form.requirements.value,
-      employer: form.employer.value,
-      imgUrl: form.imgUrl.value
+      id: form.id.value,
+      company: form.company.value,
+      rate: form.rate.value,
+      hours: form.hours.value,
+      jobTitle: form.jobTitle.value,
+      description: form.description.value
     }
 
     // console.log('the new job', jobData); 
@@ -51,7 +62,33 @@ export class JobsController {
     
   }
 
-  deleteJob(id) {
+  openEditForm(id) {
+    let job = ProxyState.jobs.find(j => j.id == id)
+    console.log('opening form', job); 
+    let form = getJobForm(job)
+    document.getElementById('form-body').innerHTML = form
+    
+
+  }
+
+  async updateJob(id) {
+    window.event.preventDefault()
+    console.log('updating',id); 
+    let form = window.event.target;
+    let jobData = {
+      id: id,
+      company: form.company.value,
+      rate: form.rate.value,
+      hours: form.hours.value,
+      jobTitle: form.jobTitle.value,
+      description: form.description.value
+    }
+    console.log(jobData, jobData.id, 'controller'); 
+    
+    await jobsService.updateJob(jobData, id)
+  }
+
+   deleteJob(id) {
     jobsService.deleteJob(id)
   }
 }
